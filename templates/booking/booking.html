@@ -1,0 +1,150 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <link rel="stylesheet" href="{% static 'css/booking_style.css' %}">
+</head>
+<body>
+
+
+    <header class="">
+        <button href="{% url 'home_page' %}" class="header">Home</button>
+        
+    </header>
+    <br><br><br>
+    <div class="image-container">
+    <img src="{% static 'images/NailGram_logo.png' %}" alt="Widescreen Image" class="widescreen-image">
+    </div>
+    
+    <div class="container">
+        {% comment %} <h2>Book an Appointment</h2> {% endcomment %}
+        <div id="calendar-container">
+            <div class="calendar-nav">
+                <button id="prevMonth" class="nav-btn">&lt;</button>
+                <span id="currentMonth">July 2024</span>
+                <button id="nextMonth" class="nav-btn">&gt;</button>
+            </div>
+            <div id="calendar-days">
+                <div class="day">Sun</div>
+                <div class="day">Mon</div>
+                <div class="day">Tue</div>
+                <div class="day">Wed</div>
+                <div class="day">Thu</div>
+                <div class="day">Fri</div>
+                <div class="day">Sat</div>
+            </div>
+            <div id="calendar"></div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>Select a Time</h2>
+            <div id="time-slots"></div>
+            <button id="bookBtn" class="disabled" onclick="bookAppointment()" disabled>Book Appointment</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendar = document.getElementById('calendar');
+            const currentMonth = document.getElementById('currentMonth');
+            const today = new Date();
+            let displayDate = new Date(today.getFullYear(), today.getMonth(), 1);
+            const maxFutureDate = new Date(today.getFullYear(), today.getMonth() + 3, 1);
+
+            function renderCalendar() {
+                calendar.innerHTML = '';
+                currentMonth.textContent = displayDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+                const firstDay = new Date(displayDate.getFullYear(), displayDate.getMonth(), 1).getDay();
+                const daysInMonth = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1, 0).getDate();
+
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'date empty';
+                    calendar.appendChild(emptyCell);
+                }
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const date = new Date(displayDate.getFullYear(), displayDate.getMonth(), i);
+                    const dateElement = document.createElement('div');
+                    dateElement.className = 'date';
+                    dateElement.innerHTML = i;
+                    dateElement.onclick = (event) => openPopup(event, date);
+                    calendar.appendChild(dateElement);
+                }
+
+                document.getElementById('prevMonth').disabled = displayDate.getMonth() === today.getMonth() && displayDate.getFullYear() === today.getFullYear();
+                document.getElementById('nextMonth').disabled = displayDate.getMonth() === maxFutureDate.getMonth() && displayDate.getFullYear() === maxFutureDate.getFullYear();
+            }
+
+            document.getElementById('prevMonth').addEventListener('click', function () {
+                if (displayDate.getMonth() > today.getMonth() || displayDate.getFullYear() > today.getFullYear()) {
+                    displayDate.setMonth(displayDate.getMonth() - 1);
+                    renderCalendar();
+                }
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', function () {
+                if (displayDate.getMonth() < maxFutureDate.getMonth() || displayDate.getFullYear() < maxFutureDate.getFullYear()) {
+                    displayDate.setMonth(displayDate.getMonth() + 1);
+                    renderCalendar();
+                }
+            });
+
+            renderCalendar();
+        });
+
+        function openPopup(event, date) {
+            const popup = document.getElementById('popup');
+            const timeSlots = document.getElementById('time-slots');
+            const bookBtn = document.getElementById('bookBtn');
+            popup.style.display = 'block';
+            popup.style.left = `${event.clientX}px`;
+            popup.style.top = `${event.clientY}px`;
+            timeSlots.innerHTML = '';
+            bookBtn.disabled = true;
+            bookBtn.classList.add('disabled');
+
+            const times = ['01:00 PM', '03:00 PM', '05:00 PM', '07:00 PM', '09:00 PM', '11:00 PM'];
+            times.forEach(time => {
+                const timeElement = document.createElement('div');
+                timeElement.className = 'time-slot';
+                timeElement.innerHTML = time;
+                timeElement.onclick = () => selectTimeSlot(timeElement);
+                timeSlots.appendChild(timeElement);
+            });
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        function selectTimeSlot(selectedElement) {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            const bookBtn = document.getElementById('bookBtn');
+            timeSlots.forEach(slot => {
+                slot.classList.remove('selected');
+                slot.style.backgroundColor = '';
+                slot.style.color = '';
+            });
+            selectedElement.classList.add('selected');
+            selectedElement.style.backgroundColor = 'grey';
+            selectedElement.style.color = 'white';
+            bookBtn.disabled = false;
+            bookBtn.classList.remove('disabled');
+        }
+
+        function bookAppointment() {
+            window.location.href = '/services';
+        }
+    </script>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,106 @@
+/* calendar_style.css */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #333;
+}
+
+h1 {
+    color: #c47ac0;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+select {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+#calendar {
+    width: 100%; /* Cover the whole page width */
+    max-width: 1200px; /* Limit maximum width for better readability */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto 50px auto; /* Auto margins for centering, increased bottom margin */
+}
+
+.fc-toolbar {
+    background-color: #c47ac0;
+    color: white;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.fc-button-primary {
+    background-color: #ffd700;
+    border-color: #ffd700;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.fc-button-primary:hover,
+.fc-button-primary:focus {
+    background-color: #f4c842;
+    border-color: #f4c842;
+}
+
+.fc-daygrid-day.fc-day-today {
+    background-color: #ffe4e1;
+}
+
+.fc-timegrid-slot-label-cushion {
+    background-color: #ffe4e1;
+}
+
+.fc-timegrid-slot:hover {
+    background-color: #ffd700;
+    cursor: pointer;
+}
+
+.fc-timegrid-slot.fc-timegrid-slot-label-cushion.fc-timegrid-slot-future {
+    background-color: #ffffff;
+}
+
+.fc-timegrid-slot.fc-timegrid-slot-label-cushion.fc-timegrid-slot-past {
+    background-color: #f0f0f0;
+    pointer-events: none;
+}
+
+.fc-view-harness {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.fc .fc-col-header-cell-cushion {
+    background-color: #c47ac0;
+    color: white;
+}
+
+.fc .fc-list-item:hover td,
+.fc .fc-list-item:hover {
+    background-color: #ffd700;
+    cursor: pointer;
+}

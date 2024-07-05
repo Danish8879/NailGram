@@ -1,0 +1,214 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffbda2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    color: rgb(255, 255, 255);
+}
+
+.image-container, .container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.image-container {
+    margin-top: 20px;
+}
+
+.container {
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin: 20px 0;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+#calendar-container {
+    background-color: #ffaa64; /* Month section color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.nav-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #ffa480;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.nav-btn:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+#calendar-days, #calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    width: 100%;
+}
+
+.day {
+    padding: 10px;
+    text-align: center;
+    background-color: #ffb584; /* Day of the week section color */
+    color: white;
+    border: 1px solid #ffb5a2;
+}
+
+.date {
+    padding: 10px;
+    text-align: center;
+    background-color: #ffffff; /* Days background color */
+    color: black; /* Days text color */
+    border: 1px solid #ffb5a2;
+}
+
+.date.empty {
+    background-color: #f4f4f4; /* Empty cell color */
+}
+
+.date:hover {
+    cursor: pointer;
+    background-color: rgb(255, 175, 175); /* Hover color */
+}
+
+#popup {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background-color: #ffaa64;
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.time-slot {
+    margin: 5px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.time-slot:last-child {
+    border-bottom: none;
+}
+
+.time-slot.selected {
+    background-color: #ff0055; /* Selected time background color */
+    color: white; /* Selected time text color */
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color:  #fd6296;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff3d78;
+}
+
+button.disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+/* Add the following styles for the header */
+.header {
+    position: fixed;
+    top: 20px; /* Adjust the top spacing as needed */
+    right: 400px; /* Adjust the right spacing as needed */
+    background-color:  #ffa480;/* Header background color */
+    padding: 10px; /* Padding around the home button */
+    text-align: center; /* Center-align text/button */
+    z-index: 1000; /* Ensures it's above other content */
+    font-size: 20px;
+}
+
+.header .nav-btn {
+    padding: 5px 10px;
+    background-color: #ffa480;
+    border: none;
+    color: rgb(224, 116, 116);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header .nav-btn:hover {
+    background-color: #ff8656; /* Hover color */
+}
+
+.social-icons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.social_icon {
+    list-style: none;
+    padding: 0;
+}
+
+.social_icon li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.social_icon a {
+    color: #fff;
+    font-size: 24px;
+    transition: color 0.3s;
+}
+
+.social_icon a:hover {
+    color: #ffa480;
+}
+
+.widescreen-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
+header .header-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
