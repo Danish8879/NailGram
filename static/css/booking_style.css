@@ -212,3 +212,20 @@ header .header-button {
 }
 
 
+.time-slot {
+    margin: 5px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.time-slot.available {
+    background-color: #ffffff; /* Available time background color */
+    color: rgb(0, 0, 0); /* Available time text color */
+}
+
+.time-slot.unavailable {
+    background-color: #ffd2ac; /* Unavailable time background color */
+    color: #521515; /* Unavailable time text color */
+    cursor: not-allowed; /* Disable cursor for unavailable slots */
+}

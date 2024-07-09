@@ -99,7 +99,7 @@
             renderCalendar();
         });
 
-        function openPopup(event, date) {
+            function openPopup(event, date) {
             const popup = document.getElementById('popup');
             const timeSlots = document.getElementById('time-slots');
             const bookBtn = document.getElementById('bookBtn');
@@ -110,14 +110,28 @@
             bookBtn.disabled = true;
             bookBtn.classList.add('disabled');
 
-            const times = ['01:00 PM', '03:00 PM', '05:00 PM', '07:00 PM', '09:00 PM', '11:00 PM'];
-            times.forEach(time => {
-                const timeElement = document.createElement('div');
-                timeElement.className = 'time-slot';
-                timeElement.innerHTML = time;
-                timeElement.onclick = () => selectTimeSlot(timeElement);
-                timeSlots.appendChild(timeElement);
-            });
+            // Fetch availability data from backend using date parameter
+                const formattedDate = date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+                fetch(`/booking/check_availability/?date=${formattedDate}`)
+                .then(response => response.json())
+                .then(data => {
+                    const times = ['01:00 PM', '03:00 PM', '05:00 PM', '07:00 PM', '09:00 PM', '11:00 PM'];
+                    times.forEach(time => {
+                        const timeElement = document.createElement('div');
+                        timeElement.className = 'time-slot';
+                        if (data[time] === 'available') {
+                            timeElement.classList.add('available');
+                            timeElement.innerHTML = `${time} - Available`;
+                            timeElement.onclick = () => selectTimeSlot(timeElement);
+                        } else {
+                            timeElement.classList.add('unavailable');
+                            timeElement.innerHTML = `${time} - Unavailable`;
+                            timeElement.style.cursor = 'not-allowed';
+                        }
+                        timeSlots.appendChild(timeElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching availability:', error));
         }
 
         function closePopup() {
