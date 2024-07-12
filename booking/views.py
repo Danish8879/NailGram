@@ -4,9 +4,9 @@ from django.http import JsonResponse
 
 #from .forms import AppointmentForm
 
+from .models import *
 
-
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.views.decorators.http import require_GET
 #from .models import Appointment
 from datetime import datetime
@@ -40,20 +40,40 @@ def check_availability(request):
 
     print("date = ",date)
     
-    #Example logic to check availability
-    times = ['01:00 PM', '03:00 PM', '05:00 PM', '07:00 PM', '09:00 PM', '11:00 PM']
-    availability_data = {
+    # #Example logic to check availability
+    # times = ['01:00 PM', '03:00 PM', '05:00 PM', '07:00 PM', '09:00 PM', '11:00 PM']
+    # availability_data = {
+    #     '01:00 PM': 'available',
+    #     '03:00 PM': 'unavailable',
+    #     '05:00 PM': 'available',
+    #     '07:00 PM': 'available',
+    #     '09:00 PM': 'unavailable',
+    #     '11:00 PM': 'available',
+    #     }
+    
+    time_slots = Appointment.objects.filter(appointment_date = date)
+
+    print("time slots = ",time_slots)
+
+    if time_slots.exists():
+
+        # for time in times:
+        #     time_slot = datetime.combine(date.date(), datetime.strptime(time, '%I:%M %p').time())
+        #     is_available = not Appointment.objects.filter(appointment_time=time_slot).exists()
+        #     availability_data[time] = 'available' if is_available else 'unavailable'
+        
+        pass
+    else:
+            availability_data = {
         '01:00 PM': 'available',
-        '03:00 PM': 'unavailable',
+        '03:00 PM': 'available',
         '05:00 PM': 'available',
         '07:00 PM': 'available',
-        '09:00 PM': 'unavailable',
+        '09:00 PM': 'available',
         '11:00 PM': 'available',
         }
+    
+    
 
-    # for time in times:
-    #     time_slot = datetime.combine(date.date(), datetime.strptime(time, '%I:%M %p').time())
-    #     is_available = not Appointment.objects.filter(appointment_time=time_slot).exists()
-    #     availability_data[time] = 'available' if is_available else 'unavailable'
-
+    #return HttpResponse("checking")
     return JsonResponse(availability_data)
