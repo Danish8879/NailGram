@@ -33,7 +33,7 @@ def book_appointment(request):
 
 
 
-@require_GET
+
 def check_availability(request):
     print("check availabiltity function reached ......")
     date = request.GET.get('date')

@@ -7,15 +7,12 @@
     <link rel="stylesheet" href="{% static 'css/booking_style.css' %}">
 </head>
 <body>
-
-
-    <header class="">
-        <button href="{% url 'home_page' %}" class="header">Home</button>
-        
+    <header>
+        <button onclick="window.location.href='{% url 'home_page' %}'" class="header">Home</button>
     </header>
     <br><br><br>
     <div class="image-container">
-    <img src="{% static 'images/NailGram_logo.png' %}" alt="Widescreen Image" class="widescreen-image">
+        <img src="{% static 'images/NailGram_logo.png' %}" alt="Widescreen Image" class="widescreen-image">
     </div>
     
     <div class="container">
@@ -99,7 +96,7 @@
             renderCalendar();
         });
 
-            function openPopup(event, date) {
+        function openPopup(event, date) {
             const popup = document.getElementById('popup');
             const timeSlots = document.getElementById('time-slots');
             const bookBtn = document.getElementById('bookBtn');
@@ -110,9 +107,8 @@
             bookBtn.disabled = true;
             bookBtn.classList.add('disabled');
 
-            // Fetch availability data from backend using date parameter
-                const formattedDate = date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
-                fetch(`/booking/check_availability/?date=${formattedDate}`)
+            const formattedDate = date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+            fetch(`/booking/check_availability/?date=${formattedDate}`)
                 .then(response => response.json())
                 .then(data => {
                     const times = ['01:00 PM', '03:00 PM', '05:00 PM', '07:00 PM', '09:00 PM', '11:00 PM'];
@@ -155,7 +151,7 @@
         }
 
         function bookAppointment() {
-            window.location.href = '/services';
+            window.location.href = "{% url 'get_services' %}";
         }
     </script>
     <br><br><br><br><br><br>
